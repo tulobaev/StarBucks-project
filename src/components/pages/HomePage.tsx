@@ -1,8 +1,9 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import scss from "./HomePage.module.scss";
 import { useNavigate } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
-// Добавим id в fakeData для примера
 const fakeData = [
   {
     id: 1,
@@ -44,11 +45,15 @@ const HomePage: FC = () => {
     }
   };
 
+  useEffect(() => {
+    AOS.init({ duration: 1500 });
+  }, []);
+
   return (
     <section className={scss.HomePage}>
       <div className="container">
         <div className={scss.homeContainer}>
-          <div className={scss.home}>
+          <div data-aos="zoom-in-down" className={scss.home}>
             <div className={scss.content}>
               <div className={scss.description}>
                 <h1>
