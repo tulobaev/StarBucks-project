@@ -4,12 +4,12 @@
   box-sizing: border-box;
   list-style: none;
   text-decoration: none;
-  color: #fff;
+  color: #333;
 }
 
 body {
-  font-family: Montserrat, sans-serif;
-  background-color: rgb(18, 21, 23);
+  font-family: Montserrat, "Segoe UI" sans-serif;
+  background: radial-gradient(circle at top left, #ffffff, #f0f0f0);
 }
 
 .container {
