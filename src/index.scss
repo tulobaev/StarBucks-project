@@ -4,10 +4,12 @@
   box-sizing: border-box;
   list-style: none;
   text-decoration: none;
+  color: #fff;
 }
 
 body {
-  font-family: sans-serif;
+  font-family: Montserrat, sans-serif;
+  background-color: rgb(18, 21, 23);
 }
 
 .container {
@@ -15,8 +17,63 @@ body {
   max-width: 1280px;
   margin-inline: auto;
   padding-inline: 40px;
-
   @media (max-width: 600px) {
     padding-inline: 20px;
   }
+}
+p {
+  color: rgba(217, 217, 217, 1);
+  line-height: 32.69px;
+  font-weight: 400;
+  font-size: clamp(1rem, 0.948rem + 0.26vw, 1.25rem);
+}
+h1 {
+  font-size: clamp(3rem, 2.582rem + 2.09vw, 5rem);
+  color: rgba(255, 255, 255, 1);
+}
+
+h2 {
+  color: rgba(255, 255, 255, 1);
+  font-weight: 500;
+  font-size: clamp(1.125rem, 0.942rem + 0.92vw, 2rem);
+}
+h3 {
+  font-size: clamp(1.375rem, 1.179rem + 0.98vw, 2.313rem);
+  background: linear-gradient(263.46deg, #237249 3.14%, #35c66b 87.2%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+h4 {
+  font-size: clamp(1.25rem, 0.701rem + 2.75vw, 3.875rem);
+  color: #fff;
+  font-weight: 400;
+}
+button {
+  cursor: pointer;
+  font-size: clamp(0.875rem, 0.744rem + 0.65vw, 1.5rem);
+  border-radius: 80px;
+  padding: 15px 30px;
+  font-weight: 400;
+  transition: background 0.5s ease, color 0.5s ease, border 0.5s ease;
+  background: linear-gradient(265.23deg, #237249 6.79%, #35c66b 97.2%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+}
+
+button:hover {
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+}
+
+h1 span {
+  font-size: clamp(3.125rem, 2.733rem + 1.96vw, 5rem);
+  background: linear-gradient(265.23deg, #237249 6.79%, #35c66b 97.2%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

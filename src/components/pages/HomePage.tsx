@@ -5,7 +5,7 @@ const HomePage: FC = () => {
   return (
     <section className={scss.HomePage}>
       <div className="container">
-        <div className={scss.content}>HomePage</div>
+        <div className={scss.content}></div>
       </div>
     </section>
   );
