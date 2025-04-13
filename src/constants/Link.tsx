@@ -1,4 +1,5 @@
 import AdminPage from "../admin/AdminPage";
+import AckToStarBucksPage from "../components/pages/AckToStarBucksPage";
 import HomePage from "../components/pages/HomePage";
 import NotFoundPage from "../components/pages/NotFountPage";
 
@@ -21,5 +22,9 @@ export const links = [
   {
     link: "*",
     element: <NotFoundPage />,
+  },
+  {
+    link: "/acktostarbucks",
+    element: <AckToStarBucksPage />,
   },
 ];

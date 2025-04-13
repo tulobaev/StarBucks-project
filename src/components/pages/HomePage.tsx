@@ -1,11 +1,47 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import scss from "./HomePage.module.scss";
-import image from "../../image/Group 2.png";
-import image1 from "../../image/Coffee_01.png";
 import { useNavigate } from "react-router-dom";
+
+const fakeData = [
+  {
+    id: 1,
+    name: "Classic Vanilla Latte",
+    image:
+      "https://media.xenial.com/company_63ddbd701aaf62eaecef230d/product-images/53630-IcedMatchaLatte_300px_(1).png",
+    description:
+      "Smooth espresso blended with steamed milk and sweet vanilla syrup, topped with a light foam.",
+  },
+  {
+    id: 2,
+    name: "Oat Milk Honey Latte",
+    image:
+      "https://media.xenial.com/company_63ddbd701aaf62eaecef230d/product-images/54905-IcedOatHoney_300px.png",
+    description:
+      "Blonde espresso with creamy oat milk and a touch of honey, served with a velvety foam.",
+  },
+  {
+    id: 3,
+    name: "Pumpkin Spice Latte",
+    image:
+      "https://media.xenial.com/company_63ddbd701aaf62eaecef230d/product-images/66926-ChaiFrappe_300px.png",
+    altText: "Pumpkin spice latte with whipped cream",
+    description:
+      "A fall favorite with espresso, pumpkin spice syrup, and steamed milk, finished with whipped cream and a dash of cinnamon.",
+  },
+];
 
 const HomePage: FC = () => {
   const navigate = useNavigate();
+  const [mainCard, setMainCard] = useState(fakeData[0]);
+  const newCardSlice = fakeData.slice(fakeData.length - 3);
+
+  const handleImageClick = (id: number) => {
+    const selectedCard = fakeData.find((item) => item.id === id);
+    if (selectedCard) {
+      setMainCard(selectedCard);
+    }
+  };
+
   return (
     <section className={scss.HomePage}>
       <div className="container">
@@ -14,16 +50,10 @@ const HomePage: FC = () => {
             <div className={scss.content}>
               <div className={scss.description}>
                 <h1>
-                  It’s not just Coffee It’s
+                  {mainCard.name}
                   <span> Starbucks</span>
                 </h1>
-                <p>
-                  Since 1971, it always has been and will always be about
-                  quality. We’re passionate about ethically sourcing only the
-                  finest Arabica coffee beans and roasting them with great care.
-                  Our passion for coffee is rivaled only by our love of sharing
-                  it.
-                </p>
+                <p>{mainCard.description}</p>
                 <div className={scss.btnBox}>
                   <button onClick={() => navigate("/menu")}>
                     Select a Coffee
@@ -32,14 +62,16 @@ const HomePage: FC = () => {
                 </div>
               </div>
               <div className={scss.imageBox}>
-                <img src={image} alt="image" />
+                <img src={mainCard.image} alt={mainCard.name} />
               </div>
             </div>
 
             <div className={scss.replace}>
-              <img src={image1} alt="image" />
-              <img src={image1} alt="image" />
-              <img src={image1} alt="image" />
+              {newCardSlice.map((item, index) => (
+                <div key={index} onClick={() => handleImageClick(item.id)}>
+                  <img src={item.image} alt={item.name} />
+                </div>
+              ))}
             </div>
           </div>
 
@@ -52,13 +84,12 @@ const HomePage: FC = () => {
                   drink when you make a qualifying purchase during your first
                   week as a Starbucks® Rewards member.*
                 </p>
-
-                <button>Join now</button>
+                <button onClick={() => navigate("/signUp")}>Join now</button>
               </div>
               <div className={scss.imageBox}>
                 <img
                   src="https://content-prod-live.cert.starbucks.com/binary/v2/asset/137-97180.jpg"
-                  alt="image"
+                  alt="reward"
                 />
               </div>
             </div>
@@ -67,7 +98,7 @@ const HomePage: FC = () => {
               <div className={scss.imageBox}>
                 <img
                   src="https://content-prod-live.cert.starbucks.com/binary/v2/asset/137-97604.jpg"
-                  alt="image"
+                  alt="refill"
                 />
               </div>
               <div className={scss.title}>
@@ -76,8 +107,9 @@ const HomePage: FC = () => {
                   Drink orders now include refills of hot and iced brewed coffee
                   or tea while you enjoy the café.**
                 </p>
-
-                <button>Learn more</button>
+                <button onClick={() => navigate("/acktostarbucks")}>
+                  Learn more
+                </button>
               </div>
             </div>
 
@@ -88,13 +120,12 @@ const HomePage: FC = () => {
                   Customize your drink with your favorite nondairy milk—like
                   soy, coconut, almond or oat—for no additional charge.
                 </p>
-
-                <button>Order now</button>
+                <button onClick={() => navigate("/menu")}>Order now</button>
               </div>
               <div className={scss.imageBox}>
                 <img
                   src="https://content-prod-live.cert.starbucks.com/binary/v2/asset/137-97469.jpg"
-                  alt="image"
+                  alt="nondairy"
                 />
               </div>
             </div>
