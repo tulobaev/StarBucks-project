@@ -1,5 +1,6 @@
 import AdminPage from "../admin/AdminPage";
 import HomePage from "../components/pages/HomePage";
+import NotFoundPage from "../components/pages/NotFountPage";
 
 export const links = [
   {
@@ -16,5 +17,9 @@ export const links = [
     link: "/admin",
     element: <AdminPage />,
     title: "Admin",
+  },
+  {
+    link: "*",
+    element: <NotFoundPage />,
   },
 ];
