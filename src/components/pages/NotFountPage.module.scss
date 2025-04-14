@@ -1,0 +1,58 @@
+.NotFoundPage {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  background-image: url("https://fortune.com/img-assets/wp-content/uploads/2015/07/gettyimages-154211247.jpg");
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeIn 1s ease-in-out;
+  }
+  .title {
+    font-weight: 700;
+    line-height: 1.2;
+    color: #fff;
+    margin: 0;
+    text-transform: capitalize;
+  }
+
+  .message {
+    line-height: 1.6;
+    color: #fff;
+    margin: 0;
+
+    @media (max-width: 480px) {
+      font-size: 16px;
+    }
+  }
+
+  .imageBox {
+    max-width: 300px;
+    width: 100%;
+
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    }
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
