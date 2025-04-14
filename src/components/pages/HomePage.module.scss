@@ -31,11 +31,11 @@
         }
 
         .imageBox {
-          max-width: 450px;
+          max-width: 350px;
 
           img {
-            width: 100%;
-            height: auto;
+            width: 250px;
+            height: 400px;
             object-fit: cover;
             transition: transform 0.3s ease-in-out;
           }
