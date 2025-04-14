@@ -1,0 +1,74 @@
+.AdminPage {
+  padding-block: 60px;
+}
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.form {
+  background: rgba(151, 146, 146, 0.279);
+  padding: 40px;
+  border-radius: 20px;
+  gap: 30px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 3px 3px 50px 0.5px black;
+  color: rgb(34, 33, 33);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+::placeholder {
+  color: rgba(121, 117, 117, 0.61);
+}
+
+.content input {
+  border: 2px solid rgba(255, 255, 255, 0.461);
+  width: 15em;
+  height: 2.5em;
+  padding-left: 0.8em;
+  color: rgba(80, 79, 79, 0.71);
+  outline: none;
+  overflow: hidden;
+  background: none;
+  border-radius: 10px;
+  transition: all 0.5s;
+  width: 300px;
+}
+
+.content input:hover {
+  border: 2px solid #58ec4a;
+  box-shadow: 0px 0px 0px 5px rgba(17, 118, 27, 0.678);
+  background-color: rgba(255, 255, 255, 0.107);
+}
+
+.button {
+  width: 160px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35em;
+  padding: 0.75em 1em;
+  padding-right: 1.25em;
+  color: #fff;
+  border-radius: 2em;
+  box-shadow: 0 0.7em 1.5em -0.5em hsla(140, 94%, 37%, 0.852);
+}
+.button:hover {
+  border-color: #1bb95d;
+  color: #1bb95d;
+}
+
+.select {
+  border-radius: 6px;
+  padding: 8px 20px;
+}
