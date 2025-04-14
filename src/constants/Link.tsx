@@ -1,6 +1,7 @@
 import AdminPage from "../admin/AdminPage";
 import AckToStarBucksPage from "../components/pages/AckToStarBucksPage";
 import HomePage from "../components/pages/HomePage";
+import MenuPage from "../components/pages/MenuPage";
 import NotFoundPage from "../components/pages/NotFountPage";
 
 export const links = [
@@ -11,7 +12,7 @@ export const links = [
   },
   {
     link: "/menu",
-    element: "",
+    element: <MenuPage />,
     title: "Menu",
   },
   {
