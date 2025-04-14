@@ -3,52 +3,70 @@ import scss from "./HomePage.module.scss";
 import { useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { useAppDispatch, useAppSelector } from "../../store/Store";
+import axios from "axios";
+import { oneProduct, setData } from "../../store/slice/DataSlice";
 
-const fakeData = [
-  {
-    id: 1,
-    name: "Classic Vanilla Latte",
-    image:
-      "https://media.xenial.com/company_63ddbd701aaf62eaecef230d/product-images/53630-IcedMatchaLatte_300px_(1).png",
-    description:
-      "Smooth espresso blended with steamed milk and sweet vanilla syrup, topped with a light foam.",
-  },
-  {
-    id: 2,
-    name: "Oat Milk Honey Latte",
-    image:
-      "https://media.xenial.com/company_63ddbd701aaf62eaecef230d/product-images/54905-IcedOatHoney_300px.png",
-    description:
-      "Blonde espresso with creamy oat milk and a touch of honey, served with a velvety foam.",
-  },
-  {
-    id: 3,
-    name: "Pumpkin Spice Latte",
-    image:
-      "https://myvancity.ca/wp-content/uploads/2018/08/PumpkinSpiceLatte.jpg-3.png",
-    altText: "Pumpkin spice latte with whipped cream",
-    description:
-      "A fall favorite with espresso, pumpkin spice syrup, and steamed milk, finished with whipped cream and a dash of cinnamon.",
-  },
-];
+interface IInitialStateType {
+  _id: number;
+  name: string;
+  price: number | string;
+  photoURL: string;
+  description: string;
+  category: string;
+  calories?: string;
+}
+
+const API = import.meta.env.VITE_API;
 
 const HomePage: FC = () => {
+  const { data } = useAppSelector((store) => store.dataProduct);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [mainCard, setMainCard] = useState(fakeData[0]);
-
-  const newCardSlice = fakeData.slice(fakeData.length - 3);
+  const [mainCard, setMainCard] = useState<IInitialStateType | null>(null);
+  const newCardSlice = data.slice(data.length - 3);
 
   const handleImageClick = (id: number) => {
-    const selectedCard = fakeData.find((item) => item.id === id);
+    const selectedCard = data.find((item) => item._id === id);
     if (selectedCard) {
       setMainCard(selectedCard);
     }
   };
 
+  async function readProduct() {
+    try {
+      const { data } = await axios.get(API);
+      dispatch(setData(data.data));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function getOneProduct(id: number) {
+    try {
+      const { data } = await axios.get(`${API}/${id}`);
+      dispatch(oneProduct(data));
+      navigate(`/details/${data.name}`);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   useEffect(() => {
     AOS.init({ duration: 1500 });
   }, []);
 
+  useEffect(() => {
+    readProduct();
+  }, []);
+
+  useEffect(() => {
+    if (data.length > 0) {
+      setMainCard(data[0]);
+    }
+  }, [data]);
+
+  if (!mainCard) return <div>Loading...</div>;
   return (
     <section className={scss.HomePage}>
       <div className="container">
@@ -65,24 +83,26 @@ const HomePage: FC = () => {
                   <button onClick={() => navigate("/menu")}>
                     Select a Coffee
                   </button>
-                  <button>Learn More</button>
+                  <button onClick={() => getOneProduct(mainCard._id)}>
+                    Learn More
+                  </button>
                 </div>
               </div>
               <div className={scss.imageBox}>
-                <img src={mainCard.image} alt={mainCard.name} />
+                <img src={mainCard.photoURL} alt={mainCard.name} />
               </div>
             </div>
 
             <div className={scss.replace}>
               {newCardSlice.map((item) => (
                 <div
-                  key={item.id}
-                  onClick={() => handleImageClick(item.id)}
+                  key={item._id}
+                  onClick={() => handleImageClick(item._id)}
                   className={scss.card}
                 >
                   <img
-                    src={item.image}
-                    alt={item.altText || item.name}
+                    src={item.photoURL}
+                    alt={item.name}
                     className={scss.thumbnail}
                   />
                 </div>

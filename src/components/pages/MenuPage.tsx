@@ -1,32 +1,9 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import styles from "./MenuPage.module.scss";
-
-const mockProducts = [
-  {
-    id: 1,
-    name: "Caffe Americano",
-    price: "$3.15",
-    category: "Cold Coffee",
-    image:
-      "https://media.xenial.com/company_63ddbd701aaf62eaecef230d/product-images/54905-IcedOatHoney_300px.png",
-  },
-  {
-    id: 2,
-    name: "Cappuccino",
-    category: "Hot Tea",
-    price: "$4.25",
-    image:
-      "https://media.xenial.com/company_63ddbd701aaf62eaecef230d/product-images/54905-IcedOatHoney_300px.png",
-  },
-  {
-    id: 1,
-    name: "Caffe Americano",
-    category: "Refreshers",
-    price: "$3.15",
-    image:
-      "https://media.xenial.com/company_63ddbd701aaf62eaecef230d/product-images/54905-IcedOatHoney_300px.png",
-  },
-];
+import { useAppDispatch, useAppSelector } from "../../store/Store";
+import { oneProduct, setCategory, setData } from "../../store/slice/DataSlice";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const categories = [
   {
@@ -49,14 +26,76 @@ const categories = [
   },
 ];
 
+const API = import.meta.env.VITE_API;
 const MenuPage: FC = () => {
+  const { data, searchValue } = useAppSelector((store) => store.dataProduct);
+  const dispatch = useAppDispatch();
   const [selectedCategory, setSelectedCategory] = useState("Hot Coffee");
+  const [localSearchValue, setLocalSearchValue] = useState("");
+  const navigate = useNavigate();
 
-  const filteredData = mockProducts.filter(
-    (item) =>
+  async function readProduct() {
+    try {
+      const { data } = await axios.get(API);
+      dispatch(setData(data.data));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function handleProduct(category: string) {
+    dispatch(setCategory(category));
+  }
+
+  useEffect(() => {
+    readProduct();
+  }, []);
+
+  const filteredData = data.filter((item) => {
+    const categoryMatch =
       item.category.toLowerCase().trim() ===
-      selectedCategory.toLowerCase().trim()
-  );
+      selectedCategory.toLowerCase().trim();
+    if (localSearchValue) {
+      return (
+        categoryMatch &&
+        (item.name.toLowerCase().includes(localSearchValue.toLowerCase()) ||
+          item.price.toString().includes(localSearchValue))
+      );
+    }
+
+    return categoryMatch;
+  });
+
+  function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
+    setLocalSearchValue(e.target.value);
+  }
+
+  //!
+  function filterSearch(value: string) {
+    let result = data.filter(
+      (item) =>
+        item.name.toLowerCase().trim().includes(value.toLowerCase().trim()) ||
+        item.price.toString().includes(value)
+    );
+    dispatch(setData(result));
+    if (!value) {
+      readProduct();
+    }
+  }
+
+  async function getOneProduct(id: number) {
+    try {
+      const { data } = await axios.get(`${API}/${id}`);
+      dispatch(oneProduct(data));
+      navigate(`/details/${data.name}`);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    filterSearch(searchValue);
+  }, [searchValue]);
 
   return (
     <section className={styles.menuPage}>
@@ -67,10 +106,8 @@ const MenuPage: FC = () => {
               <div key={group.type}>
                 <h5>{group.type}</h5>
                 {group.items.map((item) => (
-                  <div className={styles.p}>
-                    <p key={item} onClick={() => setSelectedCategory(item)}>
-                      {item}
-                    </p>
+                  <div className={styles.p} key={item}>
+                    <p onClick={() => setSelectedCategory(item)}>{item}</p>
                   </div>
                 ))}
               </div>
@@ -78,20 +115,46 @@ const MenuPage: FC = () => {
           </aside>
 
           <div className={styles.products}>
-            <p>
-              Menu/<span>{selectedCategory}</span>
-            </p>
+            <div className={styles.headerSection}>
+              <p>
+                Menu/<span>{selectedCategory}</span>
+              </p>
+              <div className={styles.searchFilter}>
+                <input
+                  type="text"
+                  placeholder="Search in this category..."
+                  value={localSearchValue}
+                  onChange={handleSearch}
+                  className={styles.searchInput}
+                />
+              </div>
+            </div>
             <h2 className={styles.categoryTitle}>{selectedCategory}</h2>
             <hr />
             <div className={styles.productGrid}>
-              {filteredData.map((product) => (
-                <div key={product.id} className={styles.productCard}>
-                  <div className={styles.productImage}>
-                    <img src={product.image} alt={product.name} />
+              {filteredData.length > 0 ? (
+                filteredData.map((product) => (
+                  <div
+                    onClick={() => {
+                      getOneProduct(product._id);
+                      handleProduct(product.category);
+                    }}
+                    key={product._id}
+                    className={styles.productCard}
+                  >
+                    <div className={styles.productImage}>
+                      <img src={product.photoURL} alt={product.name} />
+                    </div>
+                    <h2 className={styles.productName}>{product.name}</h2>
                   </div>
-                  <h2 className={styles.productName}>{product.name}</h2>
+                ))
+              ) : (
+                <div className={styles.noResults}>
+                  <p>
+                    No products found. Try a different search term or category.
+                  </p>
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </div>
