@@ -15,8 +15,8 @@ const API = import.meta.env.VITE_API;
 const AdminPage: FC = () => {
   const { register, handleSubmit, reset } = useForm();
   const [product, setProduct] = useState<IForm>();
-console.log(product);
-//ozgortush krk
+  console.log(product);
+  //ozgortush krk
   const readProduct = async () => {
     try {
       let { data } = await axios.get(API);
@@ -86,13 +86,13 @@ console.log(product);
                 <option value="Cold coffe">Cold coffe</option>
                 <option value="Hot tea">Hot tea</option>
                 <option value="Cold tea">Cold tea</option>
+                <option value="Refreshers ">Cold tea</option>
               </select>
               <button className={scss.button} type="submit">
                 Create
               </button>
             </form>
-            <div>
-            </div>
+            <div></div>
           </div>
         </div>
       </div>

@@ -1,0 +1,99 @@
+.Login {
+  color: #fff;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  padding-block: 50px;
+}
+
+.block {
+  background: #1e3932;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  border-radius: 20px;
+  gap: 30px;
+  max-width: 350px;
+  width: 100%;
+  box-shadow: 3px 3px 50px 0.5px rgba(42, 237, 24, 0.221);
+}
+
+::placeholder {
+  color: black;
+}
+
+.block input {
+  border: 2px solid rgba(255, 255, 255, 0.79);
+  width: 15em;
+  height: 2.5em;
+  padding-left: 0.8em;
+  color: black;
+  border-radius: 10px;
+  transition: all 0.5s;
+  width: 300px;
+}
+
+.block input:hover {
+  border: 2px solid #35c66b;
+  box-shadow: 0px 0px 0px 7px rgba(54, 222, 39, 0.069);
+  background-color: rgb(255, 255, 255);
+}
+
+.first {
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.35em;
+  justify-content: center;
+  color: #fff;
+  height: 40px;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 0.7em 1.5em -0.5em hsla(0, 3%, 94%, 0.456);
+  transition: transform 0.3s;
+}
+// #35c66b
+// #237249
+.block button:hover {
+  transition: 0.2s;
+  border: 1px solid white;
+  color: #35c66b;
+}
+.btn {
+  display: flex;
+  flex-direction: column;
+}
+.block h2 {
+  color: #fff;
+  font-weight: 700;
+}
+.block p {
+  text-align: center;
+  color: #fff;
+}
+.google {
+  width: 315px;
+  cursor: pointer;
+  display: flex;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35em;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 0.7em 1.5em -0.5em hsla(0, 3%, 94%, 0.456);
+  transition: transform 0.3s;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.895) 0%,
+    rgba(255, 255, 255, 0.922) 100%
+  );
+  color: black;
+}
+.google img {
+  max-width: 18px;
+}
