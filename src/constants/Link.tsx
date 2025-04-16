@@ -38,11 +38,9 @@ export const links = [
   {
     link: "/register",
     element: <Register />,
-    title: "Register",
   },
   {
     link: "/login",
     element: <Login />,
-    title: "Login",
   },
 ];

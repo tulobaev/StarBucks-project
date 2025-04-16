@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../store/Store";
 import { oneProduct, setCategory, setData } from "../../store/slice/DataSlice";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../loaders/Loader";
 
 const categories = [
   {
@@ -150,9 +151,7 @@ const MenuPage: FC = () => {
                 ))
               ) : (
                 <div className={styles.noResults}>
-                  <p>
-                    No products found. Try a different search term or category.
-                  </p>
+                  <Loader />
                 </div>
               )}
             </div>

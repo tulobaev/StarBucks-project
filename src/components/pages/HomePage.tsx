@@ -6,6 +6,7 @@ import "aos/dist/aos.css";
 import { useAppDispatch, useAppSelector } from "../../store/Store";
 import axios from "axios";
 import { oneProduct, setData } from "../../store/slice/DataSlice";
+import Loader from "../../loaders/Loader";
 
 interface IInitialStateType {
   _id: number;
@@ -66,7 +67,12 @@ const HomePage: FC = () => {
     }
   }, [data]);
 
-  if (!mainCard) return <div>Loading...</div>;
+  if (!mainCard)
+    return (
+      <>
+        <Loader />
+      </>
+    );
   return (
     <section className={scss.HomePage}>
       <div className="container">
@@ -119,7 +125,7 @@ const HomePage: FC = () => {
                   drink when you make a qualifying purchase during your first
                   week as a Starbucks® Rewards member.*
                 </p>
-                <button onClick={() => navigate("/signIn")}>Join now</button>
+                <button onClick={() => navigate("/login")}>Join now</button>
               </div>
               <div className={scss.imageBox}>
                 <img
